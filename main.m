@@ -4,11 +4,12 @@
 % line 17.
 
 addpath(genpath('./'),'-end');
-coef = 1.0;
+coef = 1.05;
 max_connectivities = {};
 
-parfor (j=1:1, 2)
-    [n1Spikes,n2spikes,n3Spikes,~] = generate_random_xor(0.5,false);
+parfor (j=1:11, 11)
+    %countspikes 5ms
+    [n1Spikes,n2spikes,n3Spikes,~] = generate_random_xor((j-1)/10.0,false);
 
 %     tmatArchetypes = {'null hypothesis', 'dormant, unconnected', ...
 %         'dormant, excited 1', 'dormant excited 2', 'dormant, excited jointly', ...
@@ -75,23 +76,3 @@ parfor (j=1:1, 2)
     end
     max_connectivities{j} = [A_B, A_C, B_A, B_C, C_A, C_B];
 end
-
-% load('./xor_max_connectivities_3d.mat');
-% x1 = [];
-% for i = 1:length(max_connectivities)
-%     x1(i) = max(max_connectivities{i});
-% end
-% load('./xor_shuffled_max_connectivities_3d.mat');
-% x2 =[];
-% for i = 1:length(max_connectivities)
-%     x2(i) = max(max_connectivities{i});
-% end
-% 
-% x = [mean(x1) mean(x2)];
-% err = [std(x1)/length(x1) std(x2)/length(x2)];
-% str = {'XOR'; 'XOR Shuffled'};
-% barwitherr(err,x);
-% set(gca, 'XTickLabel',str, 'XTick',1:numel(str));
-% 
-% title('NMHS XOR (10 Trials)');
-% ylabel('Connectivity');
